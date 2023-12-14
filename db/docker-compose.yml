@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  postgres:
+    build: ./pq
+    environment:
+      POSTGRES_USER: palchukovsky
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - "5432:5432"
