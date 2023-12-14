@@ -80,15 +80,18 @@ void handle_request(Librarian &librarian, std::istream &in, std::ostream &out) {
         << "1. Show books\n"
         << "2. Borrow a book\n"
         << "3. Return a book\n"
+        << "0. Exit\n"
         << "\nChoose your action: ";
 
     int action = 0;
     in >> action;
-    std::cin.ignore();
+    in.ignore();
 
     out << "\nResult:\n";
 
     switch (action) {
+      case 0:
+        return;
       case 1:
         out << librarian.getAllBooks();
         break;

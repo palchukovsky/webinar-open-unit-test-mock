@@ -9,9 +9,8 @@ namespace Lib {
 Librarian::Librarian(std::unique_ptr<Database> db)
     : m_database{std::move(db)} {}
 
-auto Librarian::recognize(std::string_view readerName)
-    -> std::pair<Reader, bool> {
-  if (auto result = m_database->findReader(std::string{readerName}); result) {
+auto Librarian::recognize(std::string readerName) -> std::pair<Reader, bool> {
+  if (auto result = m_database->findReader(readerName); result) {
     return {std::move(*result), true};
   }
   return {m_database->insertReader(readerName), false};

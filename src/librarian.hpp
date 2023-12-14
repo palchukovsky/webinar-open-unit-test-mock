@@ -20,7 +20,7 @@ class Librarian {
   auto operator=(Librarian &&) -> Librarian & = default;
   auto operator=(Librarian &) = delete;
 
-  auto recognize(std::string_view readerName) -> std::pair<Reader, bool>;
+  virtual auto recognize(std::string readerName) -> std::pair<Reader, bool>;
 
   auto getAllBooks() const -> std::vector<Book>;
 

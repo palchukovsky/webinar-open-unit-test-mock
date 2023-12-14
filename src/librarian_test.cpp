@@ -37,3 +37,22 @@ TEST(LibrarianTest, Recognize) {
   EXPECT_TRUE(found);
   EXPECT_EQ(expectedReader, reader);
 }
+
+TEST(LibrarianTest, RecognizeAny) {
+  const Lib::Reader expectedReader{999, "John Doe"};
+
+  auto database = std::make_unique<MockDatabase>();
+  EXPECT_CALL(*database, findReader(testing::_))
+      .Times(testing::AtLeast(1))
+      .WillRepeatedly(
+          testing::Invoke([&expectedReader](const std::string &name) {
+            // std::cout << "Looking for the name: " << name << std::endl;
+            return expectedReader;
+          }));
+
+  const auto [reader, found] =
+      Librarian{std::move(database)}.recognize("Nobody");
+
+  EXPECT_TRUE(found);
+  EXPECT_EQ(expectedReader, reader);
+}
